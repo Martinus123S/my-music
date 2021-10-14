@@ -8,16 +8,65 @@ const scopes = [
   "playlist-read-collaborative",
 ];
 
-const BASED_URL = "https://accounts.spotify.com/authorize";
+const authorizationAPI = "https://accounts.spotify.com/authorize";
 
 export const login = () => {
-  const clientId = "7c95eb12b48d413b99757974a562a019";
-  const redirectUri = "http://localhost:3000";
+  const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+  const redirectUri = process.env.REACT_APP_REDIRECT_URI;
 
-  return `${BASED_URL}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+  return `${authorizationAPI}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
     "%20"
   )}&response_type=token`;
 };
+
+const apiEndpoint = "https://api.spotify.com/v1";
+
+export const getNameAPI = async () => {
+  const data = localStorage.getItem("info");
+  const parseData = JSON.parse(data || "{}");
+  const access_token = parseData.access_token;
+  try {
+    const response = await axios.get(`${apiEndpoint}/me`, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    return err.response;
+  }
+};
+interface IPicturePlaylist {
+  height: number;
+  url: string;
+  width: number;
+}
+
+interface IPlaylist {
+  name: string;
+  id: string;
+  images: IPicturePlaylist[];
+}
+export const getPlaylistFromMe = async (limit: Number, offset?: Number) => {
+  const data = localStorage.getItem("info");
+  const parseData = JSON.parse(data || "{}");
+  const access_token = parseData.access_token;
+  try {
+    const response = await axios.get(`${apiEndpoint}/me/playlists`, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+      params: {
+        limit,
+        offset,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    throw err?.response?.data;
+  }
+};
+
 export const getValueFromParams = () => {
   return window.location.hash
     .substring(1)

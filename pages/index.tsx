@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { Flex, Button, Heading, Stack } from "@chakra-ui/react";
-import { getValueFromParams, login } from "../services";
+import { getValueFromParams, login, removeParams } from "../services";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useRouter } from "next/dist/client/router";
@@ -12,8 +12,12 @@ const Home: NextPage = () => {
   };
   useEffect(() => {
     const { access_token, expires_in, token_type } = getValueFromParams();
+    removeParams();
     if (access_token) {
-      const data = { access_token, expires_in };
+      const data: { access_token: String; expires_in: String } = {
+        access_token,
+        expires_in,
+      };
       const stringify = JSON.stringify(data);
       window.localStorage.setItem("info", stringify);
       router.push("/profile");
