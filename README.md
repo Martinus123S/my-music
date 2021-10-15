@@ -16,19 +16,15 @@ Other libs
 ### Installation and run locally
 
 Install the dependencies and devDependencies and start the server.
+
 Before you start this apps, dont forget to copy client_id and fill redirect_uri in your spotify dashboard
 
+go to services/index.tsx
+and copy your SPOTIFY_ID and your REDIRECT_URI
+
 ```sh
-$ cp .env.development.local.example .env.development.local
 $ yarn install
 $ yarn dev
-```
-
-.env fill with your client spotify app id
-
-```sh
-$ REACT_APP_SPOTIFY_CLIENT_ID='YOUR CLIENT ID'
-$ REACT_APP_REDIRECT_URI=http://localhost:3000
 ```
 
 [reactjs]: http://reactjs.org
