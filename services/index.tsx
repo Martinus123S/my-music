@@ -1,4 +1,5 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import { IPicturePlaylist, IPlaylist } from "./models";
 
 const scopes = [
   "user-read-private",
@@ -11,8 +12,8 @@ const scopes = [
 const authorizationAPI = "https://accounts.spotify.com/authorize";
 
 export const login = () => {
-  const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-  const redirectUri = process.env.REACT_APP_REDIRECT_URI;
+  const clientId = "e479ddbea2d04ed28e765a238b51006b";
+  const redirectUri = "http://localhost:3000";
 
   return `${authorizationAPI}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
     "%20"
@@ -36,17 +37,7 @@ export const getNameAPI = async () => {
     return err.response;
   }
 };
-interface IPicturePlaylist {
-  height: number;
-  url: string;
-  width: number;
-}
 
-interface IPlaylist {
-  name: string;
-  id: string;
-  images: IPicturePlaylist[];
-}
 export const getPlaylistFromMe = async (limit: Number, offset?: Number) => {
   const data = localStorage.getItem("info");
   const parseData = JSON.parse(data || "{}");
@@ -61,6 +52,34 @@ export const getPlaylistFromMe = async (limit: Number, offset?: Number) => {
         offset,
       },
     });
+    return response?.data;
+  } catch (err) {
+    throw err?.response?.data;
+  }
+};
+
+export const getPlaylistTrack = async (
+  playlistId: string | string[] | undefined,
+  limit?: number,
+  offset?: number
+) => {
+  const data = localStorage.getItem("info");
+  const parseData = JSON.parse(data || "{}");
+  const access_token = parseData.access_token;
+  try {
+    const response = await axios.get(
+      `${apiEndpoint}/playlists/${playlistId}/tracks`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+        params: {
+          limit,
+          offset,
+          market: "ES",
+        },
+      }
+    );
     return response.data;
   } catch (err) {
     throw err?.response?.data;
