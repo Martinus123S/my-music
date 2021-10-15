@@ -1,6 +1,6 @@
-# Skilvul music
+# My-Music 
 
-Music app that built using Spotify API
+Music app that built using Spotify API (https://developer.spotify.com/documentation/web-api/reference/#reference-index)
 
 ### Tech
 
