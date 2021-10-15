@@ -12,8 +12,8 @@ const scopes = [
 const authorizationAPI = "https://accounts.spotify.com/authorize";
 
 export const login = () => {
-  const clientId = "e479ddbea2d04ed28e765a238b51006b";
-  const redirectUri = "http://localhost:3000";
+  const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+  const redirectUri = process.env.REACT_APP_REDIRECT_URI;
 
   return `${authorizationAPI}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
     "%20"

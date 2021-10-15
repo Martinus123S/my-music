@@ -1,19 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Skilvul music
 
-## Getting Started
+Music app that built using Spotify API
 
-First, run the development server:
+### Tech
 
-```bash
-npm run dev
-# or
-yarn dev
+# [ReactJS] - Frontend Library
+
+Other libs
+
+- [Chakra UI] - For website styling
+- [React Router] - For website navigation
+- [React Icons] - For custom icon
+- [axios] - For Data Fetching
+
+### Installation and run locally
+
+Install the dependencies and devDependencies and start the server.
+Before you start this apps, dont forget to copy client_id and fill redirect_uri in your spotify dashboard
+
+```sh
+$ cp .env.development.local.example .env.development.local
+$ yarn install
+$ yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+.env fill with your client spotify app id
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```sh
+$ REACT_APP_SPOTIFY_CLIENT_ID='YOUR CLIENT ID'
+$ REACT_APP_REDIRECT_URI=http://localhost:3000
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+[reactjs]: http://reactjs.org
+[chakra ui]: https://chakra-ui.com/
+[axios]: https://github.com/axios/axios
