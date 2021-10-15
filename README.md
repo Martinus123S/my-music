@@ -20,7 +20,7 @@ Install the dependencies and devDependencies and start the server.
 Before you start this apps, dont forget to copy client_id and fill redirect_uri in your spotify dashboard
 
 go to services/index.tsx
-and copy your SPOTIFY_ID and your REDIRECT_URI
+and copy your SPOTIFY_ID and your REDIRECT_URI in line 15 and 16
 
 ```sh
 $ yarn install
